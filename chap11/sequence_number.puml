@@ -1,0 +1,27 @@
+@startuml
+title Number Server - Client Sequence Diagram
+
+actor Client
+participant "NumberClient.py" as C
+participant "NumberServer.py" as S
+
+Client -> C: 사용자 입력 (숫자)
+C -> S: TCP 연결 요청
+S -> S: 연결 수락 및 소켓 생성
+C -> S: 숫자 데이터 전송 (예: "5")
+
+S -> S: 데이터 처리 (제곱 계산)
+S -> C: 결과 전송 ("The square of 5 is 25")
+C -> Client: 결과 출력
+
+== 반복 통신 ==
+Client -> C: 새로운 입력
+C -> S: 전송 및 응답 반복
+
+== 종료 ==
+Client -> C: "exit" 입력
+C -> S: "exit" 전송
+S -> S: 연결 종료 처리
+S -> C: 소켓 닫기
+C -> C: 종료 메시지 표시
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+title Time Server - Client Sequence Diagram
+
+actor Client
+participant "TimeClient.py" as C
+participant "TimeServer.py" as S
+
+Client -> C: 프로그램 실행
+C -> S: TCP 연결 요청
+S -> S: 연결 수락 (accept)
+S -> S: 현재 시간 확인 (datetime.now)
+S -> C: 현재 시간 전송 ("2025-11-04 18:00:32")
+C -> Client: 서버 시간 출력
+S -> S: 연결 종료
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+title Echo Server - Client Sequence Diagram
+
+actor Client
+participant "EchoClient.py" as C
+participant "EchoServer.py" as S
+
+Client -> C: 메시지 입력 ("Hello")
+C -> S: 메시지 전송
+S -> S: 데이터 수신 (recv)
+S -> S: 동일한 데이터로 응답 준비
+S -> C: 메시지 반송 ("Hello")
+C -> Client: 서버 응답 출력 ("Hello")
+
+== 반복 통신 ==
+Client -> C: 새로운 입력
+C -> S: 데이터 전송
+S -> C: Echo 응답
+
+== 종료 ==
+Client -> C: "exit" 입력
+C -> S: "exit" 전송
+S -> S: 연결 종료 처리
+C -> C: 소켓 종료
+@enduml
